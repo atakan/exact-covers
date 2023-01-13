@@ -37,7 +37,7 @@
 ;		collect (loop for j from 0 to w collect 0)))))
 
 
-;;; I am abondonin OO approach for now and will write this function
+;;; I am abondoning OO approach for now and will write this function
 ;;; as much as I can directly.
 (defun give-all-EC-lines (polyomino reg-width reg-height)
   "A function, given a polyomino and the size of a rectangular region,
@@ -47,6 +47,23 @@
     (dolist (p all-polyos)
       (print-all-lines p reg-width reg-height))))
 
+;; Begin print-all-lines and friends
+
+(defun print-all-lines (p reg-width reg-height)
+  (let ((p-width (length (car p)))
+	(p-height (length p)))
+    (if (or (> p-width reg-width) (> p-height reg-height)) ; FIXME strictly speaking this is not enough, perhaps the polyomino fits when rotated, will fix this later. Returning nil will suffice for now.
+	(print "polyomino does not fit into region")
+	(let ((n-empty-lines (- reg-width p-width)))
+	  (dotimes (i (1+ n-empty-lines)
+		      ;; put i empty lines before
+		      ;; put lines with polyo
+	  ;; put n-i empty lines after
+
+
+;; End print-all-lines and friends
+
+;; Begin all-orientations and friends
 (defmacro change-and-add-to (lst op)
   "This takes a list and an operation. Applies the op to the first element
    of the list and appends that to the beginning of the list.
@@ -102,6 +119,7 @@
 			     (1 1)			 
 			     (0 1)))
 
+;; End all-orientations and friends
 
   
   
