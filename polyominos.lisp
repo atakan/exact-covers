@@ -72,20 +72,36 @@
    polyomino. For example, given ((a b)  it returns ((b d f) 
                                   (c d)              (a c e))
                                   (e f))                             .
-  At the moment, it does nothing."
-  ((lambda (x) x) polyo))
+  I am still not sure how this works. Copied it from:
+  https://stackoverflow.com/questions/3513128/transposing-lists-in-common-lisp
+  This is similar to the example on p61 of PCL. Here is an explanation:
+  If polyo is the example given above, the apply part is equivalent to
+  (apply #'mapcar (list (a b) (c d) (e f))) which is equivalent to
+  (mapcar list (a b) (c d) (e f)) which picks up the element from the
+  two-element lists and puts them together as lists.
+  This is a bit read-only for me, but it works very well and I have
+  the feeling that this is the Lisp way to do this, so I'll keep it."
+  (reverse (apply #'mapcar #'list polyo)))
 
 (defun flip-polyo (polyo)
   "A function, given a polyomino as a list of lists, return a flipped
    polyomino. For example, given ((a b)  it returns ((b a) 
                                   (c d)              (d c)
-                                  (e f))             (f e))           .
-  At the moment, it does nothing."
-					;  ((lambda (x) x) polyo))
+                                  (e f))             (f e))           ."
   (loop for row in polyo
 	collect (reverse row)))
 
+(defun do-nothing (polyo)
+  ((lambda (x) x) polyo))
+
 (defparameter *polyo1* '((a b)
 			 (c d)			 
-			 (e f))
+			 (e f)))
+
+(defparameter *tet-polyo1* '((0 1)
+			     (1 1)			 
+			     (0 1)))
+
+
+  
   
