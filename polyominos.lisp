@@ -1,42 +1,3 @@
-;(defclass polyomino ()
-;  ((width :initarg :width)
-;   (height :initarg :height)
-;   (shape :initform nil))
-;  (:documentation "A simple polyomino class."))
-
-
-;(defparameter *b* #2a((0 1)
-;		      (1 1)
-;		      (0 1)))
-
-;(defparameter *c* ("01"
-;		   "11"
-;		   "01"))
-
-;(defclass polyomino ()
-;  ((shape :initform nil
-;	  :initarg :shape))
-;  (:documentation "A simple polyomino class."))
-
-;(defun make-polyomino (shape)
-;  (make-instance 'polyomino :shape shape))
-
-;(defclass region ()
-;  ((width :initarg :width)
-;   (height :initarg :height)
-;   (shape :initform nil)))
-
-;(defmethod initialize-instance :after ((reg region) &key)
-;  "Note that the initialization is a bit weird and arbitrary. We create
-;   vectors of size :width and put :height of these together in another
-;   vector."
-;  (let ((w (slot-value reg 'width))
-;	(h (slot-value reg 'height)))
-;    (setf (slot-value reg 'shape)
-;	  (loop for i from 0 to h
-;		collect (loop for j from 0 to w collect 0)))))
-
-
 ;;; I am abondoning OO approach for now and will write this function
 ;;; as much as I can directly.
 (defun give-all-EC-lines (polyomino reg-width reg-height)
@@ -50,6 +11,10 @@
 ;; Begin print-all-lines and friends
 
 (defun print-all-lines (p reg-width reg-height)
+  "A function, given a polyomino and a rectangular region (as width and height),
+   returns a matrix suitable for exact cover formulation.
+   The actual code is not going to use this presentation (see Knuth).
+   I will either modify this, or use this output as an intermediate step."
   (let ((p-width (length (car p)))
 	(p-height (length p)))
     (if (or (> p-width reg-width) (> p-height reg-height)) ; FIXME strictly speaking this is not enough, perhaps the polyomino fits when rotated, will fix this later. Returning nil will suffice for now.
