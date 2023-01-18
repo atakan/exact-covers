@@ -10,18 +10,31 @@
 
 ;; Begin print-all-lines and friends
 
+(defun zeroes (n)
+  (loop for i from 0 below n
+	collect 0))
+
 (defun print-all-lines (p reg-width reg-height)
   "A function, given a polyomino and a rectangular region (as width and height),
-   returns a matrix suitable for exact cover formulation.
+   returns a sub-matrix suitable for exact cover formulation.
+   XXX explain where in Knuth's matrix this sub-matrix is. XXX
    The actual code is not going to use this presentation (see Knuth).
    I will either modify this, or use this output as an intermediate step."
   (let ((p-width (length (car p)))
 	(p-height (length p)))
     (if (or (> p-width reg-width) (> p-height reg-height)) ; FIXME strictly speaking this is not enough, perhaps the polyomino fits when rotated, will fix this later. Returning nil will suffice for now.
 	(print "polyomino does not fit into region")
-	(let ((n-empty-lines (- reg-width p-width)))
-	  (dotimes (i (1+ n-empty-lines)
-		      ;; put i empty lines before
+	(let ((n-empty-lines (- reg-width p-width))
+	      (EC-sub-matrix nil))
+	  ;; we will print N=n-empty-lines empty lines
+	  ;; we will do this N+1 different ways:
+	  ;; (0 before, N later), (1 before, N-1 later) ... (N before, 0 later)
+	  (dotimes (i (1+ n-empty-lines))
+	    ;; put i empty lines before
+	    (dotimes (j i)
+	      (format t "%a" (zeroes reg-width)))
+	    (dolist 
+	      
 		      ;; put lines with polyo
 	  ;; put n-i empty lines after
 
