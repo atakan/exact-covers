@@ -24,13 +24,13 @@
 	(p-height (length p)))
     (if (or (> p-width reg-width) (> p-height reg-height)) ; FIXME strictly speaking this is not enough, perhaps the polyomino fits when rotated, will fix this later. Returning nil will suffice for now.
 	(print "polyomino does not fit into region")
-	(let ((n-empty-lines (- reg-width p-width))
-	      (EC-sub-matrix nil))
-	  ;; we will print N=n-empty-lines empty lines
-	  ;; we will do this N+1 different ways:
-	  ;; (0 before, N later), (1 before, N-1 later) ... (N before, 0 later)
+	(let ((N-emp-rows (- reg-width p-width))
+	      (N-emp-cols (- reg-height p-height))
+	      (EC-mat-part (make-array
+			    ((* reg-width reg-height)
+			     (* (1+ N-emp-rows) (1+ N-emp-cols)))
+			    :fill-pointer 0 :adjustable t)))
 	  (dotimes (i (1+ n-empty-lines))
-	    ;; put i empty lines before
 	    (dotimes (j i)
 	      (format t "%a" (zeroes reg-width)))
 	    (dolist 
